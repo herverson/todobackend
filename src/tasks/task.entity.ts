@@ -1,4 +1,3 @@
-// src/tasks/task.entity.ts
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
