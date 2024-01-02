@@ -8,19 +8,34 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
+import { ApiTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { TasksService } from './tasks.service';
 import { Task } from './task.entity';
 
+@ApiTags('tasks')
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
+  @ApiOperation({ summary: 'Get all tasks' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return a list of tasks',
+    type: Task,
+    isArray: true,
+  })
   async getAllTasks(): Promise<Task[]> {
     return this.tasksService.getAllTasks();
   }
 
   @Post()
+  @ApiOperation({ summary: 'Create a new task' })
+  @ApiResponse({
+    status: 201,
+    description: 'The task has been successfully created',
+    type: Task,
+  })
   async createTask(
     @Body() body: { title: string; description: string },
   ): Promise<Task> {
